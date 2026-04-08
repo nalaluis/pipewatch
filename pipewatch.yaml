@@ -1,0 +1,13 @@
+# pipewatch configuration
+
+thresholds:
+  max_failure_rate: 0.05        # CRITICAL if >= 5% rows fail
+  warning_failure_rate: 0.01    # WARNING  if >= 1% rows fail
+  min_throughput: 10.0          # CRITICAL if < 10 rows/sec
+  warning_throughput: 50.0      # WARNING  if < 50 rows/sec
+  max_duration_seconds: 3600    # CRITICAL if pipeline runs > 1 hour
+
+pipelines:
+  - orders_ingestion
+  - user_events
+  - inventory_sync
