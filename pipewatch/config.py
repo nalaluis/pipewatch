@@ -11,11 +11,27 @@ DEFAULT_CONFIG_PATH = Path("pipewatch.yaml")
 
 
 def load_config(path: Path = DEFAULT_CONFIG_PATH) -> Dict[str, Any]:
-    """Load raw configuration dictionary from a YAML file."""
+    """Load raw configuration dictionary from a YAML file.
+
+    Args:
+        path: Path to the YAML configuration file.
+
+    Returns:
+        Parsed configuration dictionary, or an empty dict if the file does not exist.
+
+    Raises:
+        yaml.YAMLError: If the file content is not valid YAML.
+        OSError: If the file exists but cannot be read.
+    """
     if not path.exists():
         return {}
     with path.open("r") as fh:
-        data = yaml.safe_load(fh) or {}
+        try:
+            data = yaml.safe_load(fh) or {}
+        except yaml.YAMLError as exc:
+            raise yaml.YAMLError(
+                f"Failed to parse configuration file '{path}': {exc}"
+            ) from exc
     return data
 
 
