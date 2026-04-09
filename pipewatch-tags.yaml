@@ -1,0 +1,18 @@
+# pipewatch tag rules
+# Assign tags to pipelines based on metric conditions.
+tag_rules:
+  - tag: high-failure
+    min_failure_rate: 0.1
+
+  - tag: low-throughput
+    max_throughput: 10.0
+
+  - tag: critical-pipeline
+    status: critical
+
+  - tag: ingestion-warning
+    name_pattern: "ingest-*"
+    status: warning
+
+  - tag: stalled
+    max_throughput: 0.0
