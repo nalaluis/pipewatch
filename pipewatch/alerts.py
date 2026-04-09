@@ -58,6 +58,16 @@ def build_alerts(pipeline_name: str, result: HealthResult) -> List[Alert]:
     return alerts
 
 
+def filter_alerts(alerts: List[Alert], min_level: AlertLevel) -> List[Alert]:
+    """Return only alerts at or above the given minimum severity level.
+
+    Severity order (ascending): INFO < WARNING < CRITICAL.
+    """
+    order = [AlertLevel.INFO, AlertLevel.WARNING, AlertLevel.CRITICAL]
+    threshold = order.index(min_level)
+    return [a for a in alerts if order.index(a.level) >= threshold]
+
+
 def emit_alerts(alerts: List[Alert], sink=None) -> None:
     """Emit alerts to a sink (defaults to stdout)."""
     import sys
