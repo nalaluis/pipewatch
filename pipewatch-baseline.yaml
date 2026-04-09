@@ -1,0 +1,21 @@
+# pipewatch baseline configuration
+# Controls how metric baselines are captured and compared.
+
+baseline:
+  # Directory where baseline snapshots are stored (relative to project root)
+  storage_dir: .pipewatch/baselines
+
+  # Failure-rate increase above baseline that triggers a regression flag (0.0 – 1.0)
+  regression_threshold: 0.05
+
+  # Auto-capture a new baseline after every N successful (healthy) runs.
+  # Set to 0 to disable automatic capture.
+  auto_capture_after_runs: 0
+
+  # Pipelines to exclude from baseline tracking (glob patterns supported)
+  exclude:
+    # - "scratch_*"
+    # - "temp_pipeline"
+
+  # Emit a warning when no baseline exists for a pipeline
+  warn_on_missing_baseline: false
