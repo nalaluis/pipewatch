@@ -1,0 +1,37 @@
+# Example configuration file for pipewatch notifications
+# This shows how to configure multiple notification backends
+
+notifications:
+  # Simple stdout notifier for development/testing
+  - type: stdout
+    enabled: true
+    min_level: warning
+
+  # Webhook notifier for production alerts
+  - type: webhook
+    enabled: true
+    min_level: critical
+    config:
+      url: https://hooks.example.com/pipewatch
+      timeout: 30
+
+  # Slack notifier (future implementation)
+  # - type: slack
+  #   enabled: true
+  #   min_level: warning
+  #   config:
+  #     webhook_url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+  #     channel: "#data-alerts"
+  #     username: "PipeWatch Bot"
+
+  # Email notifier (future implementation)
+  # - type: email
+  #   enabled: true
+  #   min_level: critical
+  #   config:
+  #     smtp_host: smtp.example.com
+  #     smtp_port: 587
+  #     from: pipewatch@example.com
+  #     to:
+  #       - team@example.com
+  #       - oncall@example.com
