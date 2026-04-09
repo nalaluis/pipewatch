@@ -1,0 +1,17 @@
+# pipewatch label rules
+# Each rule maps a pipeline name glob to one or more labels.
+label_rules:
+  - pattern: "payments-*"
+    labels:
+      - finance
+      - critical
+  - pattern: "analytics-*"
+    labels:
+      - analytics
+  - pattern: "*-nightly"
+    labels:
+      - scheduled
+      - nightly
+  - pattern: "*"
+    labels:
+      - monitored
