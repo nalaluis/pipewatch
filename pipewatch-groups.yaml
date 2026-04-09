@@ -1,0 +1,11 @@
+# pipewatch pipeline grouping configuration
+grouping:
+  # mode: status | tag | name_prefix
+  mode: tag
+
+  # tag_key is required when mode is "tag"
+  tag_key: team
+
+  # name_prefix_len: number of dot-separated segments to use as group key
+  # e.g. pipeline "ingest.orders.v2" with prefix_len=2 -> "ingest.orders"
+  name_prefix_len: 2
