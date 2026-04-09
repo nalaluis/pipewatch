@@ -1,0 +1,10 @@
+# pipewatch throttle configuration
+# Controls how often the same alert may fire for a given pipeline.
+
+throttle:
+  # Minimum seconds between repeated alerts for the same pipeline + level.
+  cooldown_seconds: 300
+
+  # Only throttle alerts at or above this level.
+  # Accepted values: warning, critical
+  min_level: warning
