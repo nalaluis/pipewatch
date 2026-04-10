@@ -1,0 +1,5 @@
+cooldown:
+  default_seconds: 300
+  per_pipeline:
+    orders_etl: 600
+    payments_pipeline: 120
