@@ -1,0 +1,4 @@
+checkpoint:
+  enabled: true
+  directory: .pipewatch/checkpoints
+  max_consecutive_failures: 3
