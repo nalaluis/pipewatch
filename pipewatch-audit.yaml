@@ -1,0 +1,5 @@
+audit:
+  enabled: true
+  audit_dir: .pipewatch/audit
+  max_entries_per_pipeline: 500
+  include_notes: false
