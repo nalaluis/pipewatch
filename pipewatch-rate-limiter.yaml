@@ -1,0 +1,11 @@
+# pipewatch rate limiter configuration
+# Controls how frequently pipeline health checks may be executed.
+
+rate_limiter:
+  # Minimum number of seconds that must pass before a pipeline
+  # is checked again. Prevents excessive polling.
+  min_interval_seconds: 60
+
+  # When true, the interval is tracked independently per pipeline.
+  # When false, a single shared clock governs all pipelines.
+  per_pipeline: true
