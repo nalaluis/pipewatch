@@ -1,0 +1,20 @@
+# Custom runbook definitions for pipewatch.
+# Each key is matched (case-insensitive substring) against alert reason text.
+runbooks:
+  failure_rate:
+    title: "High Failure Rate"
+    steps:
+      - "Check pipeline logs for recurring errors."
+      - "Verify upstream data source availability."
+      - "Review recent deployments or schema changes."
+      - "Restart the pipeline if transient errors are suspected."
+    reference: "https://wiki.example.com/runbooks/failure-rate"
+
+  throughput:
+    title: "Low Throughput"
+    steps:
+      - "Inspect resource utilisation (CPU, memory, I/O)."
+      - "Check for back-pressure from downstream consumers."
+      - "Review batch sizes and parallelism settings."
+      - "Escalate to on-call if throughput remains below threshold."
+    reference: "https://wiki.example.com/runbooks/low-throughput"
