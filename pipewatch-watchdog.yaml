@@ -1,0 +1,3 @@
+watchdog:
+  stale_after_seconds: 300
+  enabled: true
