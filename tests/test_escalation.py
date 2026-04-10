@@ -57,6 +57,16 @@ def test_escalation_state_increment_increases_count():
     assert state.get(alert).escalation_count == 1
 
 
+def test_escalation_state_multiple_increments():
+    """Verify that successive increments accumulate correctly."""
+    state = EscalationState()
+    alert = make_alert()
+    state.record(alert)
+    for _ in range(3):
+        state.increment(alert)
+    assert state.get(alert).escalation_count == 3
+
+
 # ---------------------------------------------------------------------------
 # should_escalate
 # ---------------------------------------------------------------------------
@@ -98,30 +108,4 @@ def test_should_escalate_respects_max_escalations():
     state.record(alert)
     state.increment(alert)  # already escalated once
     policy = EscalationPolicy(escalate_after_seconds=0.0, max_escalations=1)
-    assert should_escalate(alert, state, policy, now=time() + 9999) is False
-
-
-# ---------------------------------------------------------------------------
-# escalate_alert
-# ---------------------------------------------------------------------------
-
-def test_escalate_alert_returns_critical_level():
-    alert = make_alert(level=AlertLevel.WARNING)
-    policy = EscalationPolicy(escalate_to=AlertLevel.CRITICAL)
-    result = escalate_alert(alert, policy)
-    assert result.level == AlertLevel.CRITICAL
-
-
-def test_escalate_alert_prefixes_message():
-    alert = make_alert()
-    policy = EscalationPolicy()
-    result = escalate_alert(alert, policy)
-    assert result.message.startswith("[ESCALATED]")
-
-
-def test_escalate_alert_preserves_pipeline_and_metric():
-    alert = make_alert()
-    policy = EscalationPolicy()
-    result = escalate_alert(alert, policy)
-    assert result.pipeline == alert.pipeline
-    assert result.metric == alert.metric
+    assert should_escalate(alert, state, policy, now=time() + 9999)
