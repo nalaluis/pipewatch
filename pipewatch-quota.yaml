@@ -1,0 +1,6 @@
+# pipewatch quota configuration
+# Limits the number of alerts that can fire per pipeline within a rolling window.
+
+quota:
+  max_alerts: 10
+  window_seconds: 3600
