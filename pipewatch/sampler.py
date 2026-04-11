@@ -58,6 +58,14 @@ class MetricSampler:
     def all_pipelines(self) -> List[str]:
         return list(self._windows.keys())
 
+    def pipelines_with_enough_samples(self) -> List[str]:
+        """Return pipeline names that have accumulated at least min_samples records."""
+        return [
+            name
+            for name in self._windows
+            if len(self._windows[name]) >= self._config.min_samples
+        ]
+
     def reset(self, pipeline: str) -> None:
         self._windows.pop(pipeline, None)
 
