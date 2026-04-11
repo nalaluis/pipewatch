@@ -1,0 +1,3 @@
+heartbeat:
+  timeout_seconds: 90
+  warning_seconds: 45
