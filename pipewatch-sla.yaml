@@ -1,0 +1,4 @@
+sla:
+  max_failure_rate: 0.05
+  min_throughput: 1.0
+  max_downtime_seconds: 300
