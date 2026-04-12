@@ -11,14 +11,33 @@ _DEFAULT_CONFIG_PATH = "pipewatch-circuit-breaker.yaml"
 
 
 def load_circuit_breaker_config(path: str = _DEFAULT_CONFIG_PATH) -> CircuitBreakerConfig:
-    """Load CircuitBreakerConfig from a YAML file, returning defaults if missing."""
+    """Load CircuitBreakerConfig from a YAML file, returning defaults if missing.
+
+    Args:
+        path: Path to the YAML configuration file. Defaults to
+            ``pipewatch-circuit-breaker.yaml`` in the current working directory.
+
+    Returns:
+        A :class:`CircuitBreakerConfig` populated from the ``circuit_breaker``
+        section of the file, or a default instance if the file does not exist.
+
+    Raises:
+        ValueError: If the YAML file exists but contains invalid values for
+            circuit breaker settings (e.g. non-numeric thresholds).
+        yaml.YAMLError: If the file exists but cannot be parsed as valid YAML.
+    """
     p = Path(path)
     if not p.exists():
         return CircuitBreakerConfig()
     raw = yaml.safe_load(p.read_text()) or {}
     section: Dict[str, Any] = raw.get("circuit_breaker", {})
-    return CircuitBreakerConfig(
-        failure_threshold=int(section.get("failure_threshold", 5)),
-        recovery_timeout=float(section.get("recovery_timeout", 300.0)),
-        success_threshold=int(section.get("success_threshold", 2)),
-    )
+    try:
+        return CircuitBreakerConfig(
+            failure_threshold=int(section.get("failure_threshold", 5)),
+            recovery_timeout=float(section.get("recovery_timeout", 300.0)),
+            success_threshold=int(section.get("success_threshold", 2)),
+        )
+    except (TypeError, ValueError) as exc:
+        raise ValueError(
+            f"Invalid circuit breaker configuration in '{path}': {exc}"
+        ) from exc
