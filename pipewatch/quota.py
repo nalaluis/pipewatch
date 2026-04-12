@@ -50,6 +50,14 @@ class QuotaState:
     def reset(self, pipeline: str) -> None:
         self._windows.pop(pipeline, None)
 
+    def remaining(self, pipeline: str, cfg: QuotaConfig, now: Optional[float] = None) -> int:
+        """Return the number of alerts still allowed for *pipeline* in the current window.
+
+        Returns 0 if the quota is already met or exceeded.
+        """
+        used = self.count(pipeline, cfg.window_seconds, now)
+        return max(0, cfg.max_alerts - used)
+
 
 _state = QuotaState()
 
