@@ -68,6 +68,24 @@ def test_should_suppress_after_cooldown_returns_false():
         assert should_suppress(alert, state, rules) is False
 
 
+def test_should_suppress_unmatched_pipeline_returns_false():
+    """A rule for a different pipeline should not suppress the alert."""
+    alert = make_alert(pipeline="etl", level=AlertLevel.WARNING)
+    state = SuppressionState()
+    state.record("etl", AlertLevel.WARNING)
+    rules = [SuppressionRule(pipeline="other_pipeline", level=AlertLevel.WARNING, cooldown_seconds=300)]
+    assert should_suppress(alert, state, rules) is False
+
+
+def test_should_suppress_unmatched_level_returns_false():
+    """A rule for a different alert level should not suppress the alert."""
+    alert = make_alert(pipeline="etl", level=AlertLevel.WARNING)
+    state = SuppressionState()
+    state.record("etl", AlertLevel.WARNING)
+    rules = [SuppressionRule(pipeline="etl", level=AlertLevel.CRITICAL, cooldown_seconds=300)]
+    assert should_suppress(alert, state, rules) is False
+
+
 def test_filter_alerts_allows_first_occurrence():
     alerts = [make_alert()]
     state = SuppressionState()
@@ -84,17 +102,3 @@ def test_filter_alerts_suppresses_duplicate():
     second = filter_alerts([alert], state, rules)
     assert len(first) == 1
     assert len(second) == 0
-
-
-def test_filter_alerts_different_pipelines_not_suppressed():
-    alerts = [
-        make_alert(pipeline="pipe_a"),
-        make_alert(pipeline="pipe_b"),
-    ]
-    state = SuppressionState()
-    rules = [
-        SuppressionRule(pipeline="pipe_a", level=AlertLevel.WARNING, cooldown_seconds=300),
-        SuppressionRule(pipeline="pipe_b", level=AlertLevel.WARNING, cooldown_seconds=300),
-    ]
-    result = filter_alerts(alerts, state, rules)
-    assert len(result) == 2
