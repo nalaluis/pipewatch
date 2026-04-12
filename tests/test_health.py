@@ -70,3 +70,14 @@ def test_failure_rate_zero_rows():
 def test_throughput_zero_duration():
     metric = make_metric(rows_processed=100, rows_failed=0, duration_seconds=0)
     assert metric.throughput == 0.0
+
+
+def test_multiple_issues_reported():
+    """When multiple thresholds are violated, all reasons should be reported."""
+    # High failure rate AND slow duration — expect both reasons to appear
+    metric = make_metric(rows_processed=900, rows_failed=100, duration_seconds=7200)
+    result = evaluate_health(metric, DEFAULT_THRESHOLDS)
+    assert result.status == PipelineStatus.CRITICAL
+    reason_text = " ".join(result.reasons)
+    assert "Failure rate" in reason_text
+    assert "Duration" in reason_text
