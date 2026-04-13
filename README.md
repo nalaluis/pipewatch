@@ -51,6 +51,12 @@ View live status of all monitored pipelines:
 pipewatch status
 ```
 
+Silence alerts for a pipeline temporarily:
+
+```bash
+pipewatch silence --pipeline daily_sales_etl --duration 2h
+```
+
 ---
 
 ## Features
@@ -59,6 +65,7 @@ pipewatch status
 - Configurable alerting via Slack, email, or webhooks
 - Lightweight with minimal dependencies
 - Simple YAML-based configuration
+- Temporary alert silencing with `silence` command
 
 ---
 
