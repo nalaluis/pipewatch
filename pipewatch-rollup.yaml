@@ -1,0 +1,6 @@
+rollup:
+  enabled: true
+  windows:
+    - "1h"
+    - "6h"
+    - "24h"
