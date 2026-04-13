@@ -1,0 +1,5 @@
+scorer:
+  failure_rate_weight: 0.5
+  throughput_weight: 0.3
+  status_weight: 0.2
+  throughput_baseline: 100.0
