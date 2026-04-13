@@ -1,0 +1,5 @@
+# pipewatch compactor configuration
+# Controls how long snapshot data is retained before being pruned.
+
+retention_seconds: 86400   # 24 hours
+dry_run: false
