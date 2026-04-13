@@ -1,0 +1,6 @@
+# pipewatch comparator configuration
+# Leave include_pipelines empty to compare all pipelines.
+include_pipelines: []
+exclude_pipelines: []
+highlight_regressions: true
+highlight_improvements: true
