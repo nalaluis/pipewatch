@@ -1,0 +1,5 @@
+archiver:
+  archive_dir: .pipewatch/archive
+  source_dir: .pipewatch/snapshots
+  max_age_days: 30
+  compress: true
