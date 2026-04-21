@@ -1,0 +1,5 @@
+inspector:
+  include_score: true
+  include_trend: true
+  include_anomalies: true
+  pipelines: []
