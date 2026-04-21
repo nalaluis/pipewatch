@@ -1,0 +1,14 @@
+# pipewatch-splitter.yaml — pipeline result splitter rules
+# Results are matched top-to-bottom; first matching rule wins.
+rules:
+  - bucket: critical
+    status: critical
+
+  - bucket: warning
+    status: warning
+
+  - bucket: high_failure
+    min_failure_rate: 0.5
+
+  - bucket: healthy
+    status: healthy
