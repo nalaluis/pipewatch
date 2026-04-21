@@ -1,0 +1,5 @@
+# pipewatch forecaster configuration
+steps_ahead: 1       # how many intervals to project forward
+min_samples: 3       # minimum history entries needed for a confident forecast
+max_samples: 20      # entry count at which confidence reaches 1.0
+enabled: true
