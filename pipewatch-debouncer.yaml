@@ -1,0 +1,4 @@
+debouncer:
+  # Minimum number of seconds an alert must persist before it is forwarded.
+  min_duration_seconds: 30
+  enabled: true
