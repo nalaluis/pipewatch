@@ -1,0 +1,5 @@
+left_env: production
+right_env: staging
+left_config: pipewatch.yaml
+right_config: pipewatch-staging.yaml
+fail_on_divergence: false
