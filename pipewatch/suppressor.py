@@ -40,6 +40,10 @@ class SuppressionState:
         key = self._key(pipeline, level)
         self._last_seen.pop(key, None)
 
+    def reset_all(self) -> None:
+        """Clear all suppression state, allowing all alerts to be emitted again."""
+        self._last_seen.clear()
+
 
 def should_suppress(
     alert: Alert,
