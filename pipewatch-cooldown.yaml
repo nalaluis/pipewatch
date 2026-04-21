@@ -1,5 +1,10 @@
 cooldown:
+  # Default cooldown period in seconds between pipeline runs
   default_seconds: 300
+
+  # Per-pipeline overrides (in seconds)
+  # Values lower than default allow more frequent execution
+  # Values higher than default enforce longer wait periods
   per_pipeline:
-    orders_etl: 600
-    payments_pipeline: 120
+    orders_etl: 600        # 10 min - heavy ETL, avoid frequent reruns
+    payments_pipeline: 120 # 2 min - time-sensitive, allow faster retry
