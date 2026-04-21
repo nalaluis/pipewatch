@@ -30,6 +30,15 @@ class PipelineGroup:
     def healthy_count(self) -> int:
         return sum(1 for r in self.results if r.metric.status == PipelineStatus.OK)
 
+    @property
+    def worst_status(self) -> PipelineStatus:
+        """Return the most severe status present in the group."""
+        if self.critical_count > 0:
+            return PipelineStatus.CRITICAL
+        if self.warning_count > 0:
+            return PipelineStatus.WARNING
+        return PipelineStatus.OK
+
 
 def group_by_status(results: List[HealthResult]) -> Dict[str, PipelineGroup]:
     """Group results by pipeline status string."""
