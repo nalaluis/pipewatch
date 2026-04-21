@@ -1,0 +1,4 @@
+collector:
+  max_batch_size: 50
+  skip_unknown: false
+  default_status: healthy
