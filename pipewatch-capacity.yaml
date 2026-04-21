@@ -1,0 +1,6 @@
+capacity:
+  max_throughput: 1000.0
+  warn_pct: 0.80
+  critical_pct: 0.95
+  min_throughput: 10.0
+  enabled: true
