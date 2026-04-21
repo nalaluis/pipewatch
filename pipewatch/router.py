@@ -49,6 +49,18 @@ class Router:
             results[alert.pipeline] = channels
         return results
 
+    def unregistered_channels(self) -> List[str]:
+        """Return channel names referenced by rules but not yet registered.
+
+        Useful for validating router configuration before processing alerts.
+        """
+        registered = set(self._channels)
+        return [
+            rule.channel
+            for rule in self._rules
+            if rule.channel not in registered
+        ]
+
 
 def _rule_matches(rule: RouteRule, alert: Alert) -> bool:
     if alert.level.value < rule.min_level.value:
