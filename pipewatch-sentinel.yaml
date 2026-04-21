@@ -1,0 +1,4 @@
+sentinel:
+  threshold: 3
+  window_seconds: 300
+  cooldown_seconds: 60
